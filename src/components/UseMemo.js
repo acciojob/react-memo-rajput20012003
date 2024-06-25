@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState, useMemo } from "react";
 
-let UseMemo = (props) => {
-    let [string, Setstring] = useState("");
-    function adddata() {
-        console.log(string);
-        if (string.length > 5) {
-            props.set([...props.arr, string]);
-            Setstring("");
-        }
+const Usememo = () => {
+    const[tasks , setTasks] = useState(["task1" , "task2" , "task3"]);
+    const[inputValue , setInputValue] = useState("");
+
+    const Memoisedtask = useMemo(()=> tasks.map((task,index)=> 
+                    <li key={index}>{task}</li>)
+    ,[tasks]);
+    
+
+    const handleInputChange = (e) =>{
+        setInputValue(e.target.value);
+    }
+
+    const addTask = () =>{
+        setTasks([...tasks,inputValue]);
+        setInputValue("");
     }
     return (
         <div>
-            <div className="cont">
-                <h1>React.memo</h1>
-                <input
-                    type="text"
-                    onChange={(event) => Setstring(event.target.value)}
-                    value={string}
-                    id="skill-input"
-                ></input>
-                <button onClick={adddata} id="skill-btn">
-                    Add Skill
-                </button>
-            </div>
-            <ul>
-                {props.arr.map((element) => {
-                    return <li id={"item-" + element}>{element}</li>;
-                })}
-            </ul>
+            <h1>Use memo</h1>
+            <ul>{Memoisedtask}</ul>
+            <input type="text" value={inputValue} onChange={handleInputChange}></input>
+            <button onClick={addTask} disabled={inputValue.length <= 5}>Submit</button>
         </div>
-    );
-};
-export default UseMemo;
+    )
+}
+
+export default Usememo;

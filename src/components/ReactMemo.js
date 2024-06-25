@@ -1,19 +1,38 @@
 import React from "react";
+import { useState , memo} from "react";
 
-let Count = (props) => {
-    function adddata() {
-        props.set(props.number + 1);
+const Taskitem = memo(({task})=>{
+    console.log(`rendering task ${task}`);
+    return <li>{task}</li>
+})
+
+const Reactmemo = () => {
+    const[tasks , setTasks] = useState(["task1" , "task2" , "task3"]);
+    const[inputValue , setInputValue] = useState("");
+
+    const handleInputChange = (e) =>{
+        setInputValue(e.target.value);
     }
+
+    const addTask = () =>{
+        setTasks([...tasks,inputValue]);
+        setInputValue("");
+    }
+
     return (
-        <div id="incr-cnt">
-            <div className="cont">
-                <h1>My Todos</h1>
-                <div id="calc">{props.number}</div>
-                <button onClick={adddata} id="incr-btn">
-                    +
-                </button>
-            </div>
+        <div>
+            <h1>React Memo</h1>
+            <ul>
+            {
+            tasks.map((task, index) => (
+                   <Taskitem key={index} task={task} />
+             ))}
+                
+            </ul>
+            <input onChange={handleInputChange} value={inputValue} type="text"></input>
+            <button onClick={addTask} disabled={inputValue.length <= 5}>Submit</button>
         </div>
-    );
-};
-export default Count;
+    )
+}
+
+export default Reactmemo;

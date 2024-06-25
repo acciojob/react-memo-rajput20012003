@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Todo from "./Todo.js";
-import UseMemo from "./UseMemo.js";
-import Count from "./Count.js";
-import '../styles/App.css';
+//<p>Now I can render any React component on any DOM node I want using ReactDOM.render</p>
+
+import React from "react";
+import Usememo from "./useMemo";
+import Reactmemo from "./ReactMemo";
+import { useState } from "react";
 
 const App = () => {
-    useEffect(() => { }, [count, memo, todos]);
-    let [todos, Settodos] = useState(["New Todo"]);
-    let [memo, Setmemo] = useState(["HTMLL", "CSSS3"]);
-    let [count, Setcount] = useState(1000000000);
+    const[count , setCount] = useState(0)
+
+    const increaseCount = () => {
+        setCount(count + 1);
+    }
     return (
-        <div id="main">
-            <h1>React.useMEMo</h1>x
-            <Todo set={Settodos} arr={todos} />
-            <Count set={Setcount} number={count} />
-            <h1>Expensive Calculation</h1>
-            <UseMemo set={Setmemo} arr={memo} />
+        <div>
+            <h1>Task Manager</h1>
+             <button onClick={increaseCount}>Increment Counter</button>
+             <p>Count : {count}</p>
+            <Usememo />
+            <Reactmemo />
         </div>
-    );
-};
+    )
+}
 
 export default App;
