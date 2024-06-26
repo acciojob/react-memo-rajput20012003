@@ -1,17 +1,23 @@
 import React from "react";
-import Todo from "./Todo.js";
-import Count from "./Count.js";
-import Memo from "./Memo.js";
-
-const App = ()=>{
-    return(
-        <div id='main'>
-            <h1>React.useMemo</h1>
-            <Todo />
-            <Count />
-            <Memo />
-        </div>
-    )
-}
+import { useState } from "react";
+// 
+import MyTodos from "./MyTodos";
+import Counter from "./Counter";
+import ReactMemo from "./ReactMemo";
+const App = () => {
+    const [dataObj, setDataObj] = useState({
+        todoArr: [],
+        count: 0,
+        skillsArr: []
+    })
+  return (
+    <div id="main">
+        <h1>React.useMemo</h1>
+        <MyTodos dataObj={dataObj} setDataObj={setDataObj} /><hr />
+        <Counter dataObj={dataObj} setDataObj={setDataObj} /><hr /><hr />
+        <ReactMemo dataObj={dataObj} setDataObj={setDataObj} />
+    </div>
+  );
+};
 
 export default App;
